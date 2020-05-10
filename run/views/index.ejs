@@ -3,6 +3,16 @@
 <!DOCTYPE html>
 <html lang="ko">
   <head>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-128970407-6"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-128970407-6');
+</script>
+
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>코드롭 | 지금도 바이러스는 전파되고 있습니다</title>
@@ -36,6 +46,22 @@ section {
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark" id="mainNav">
     <div class="container">
       <a class="navbar-brand js-scroll-trigger" href="/">Codrop</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+        <i class="fas fa-bars"></i>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarResponsive">
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item">
+            <a class="nav-link js-scroll-trigger" href="https://team.devent.kr">Team</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link js-scroll-trigger" href="http://pf.kakao.com/_xkzxjxexb">팀 카카오톡 채널</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link js-scroll-trigger" href="intro">소개</a>
+          </li>
+        </ul>
+      </div>
     </div>
   </nav>
 
@@ -53,7 +79,8 @@ section {
       <div class="row">
         <div class="col-lg-8 mx-auto">
             <h3 class="fontNoto animated fadeIn delay-1s text-dark" id="globalsecUpdate"></h3>
-            <h3 class="fontNoto animated fadeIn delay-2s text-dark"></h3>
+            <h3 class="fontNoto animated fadeIn delay-2s text-dark" id="globalminUpdate"></h3>
+            <h3 class="fontNoto animated fadeIn delay-3s text-dark" id="globalhUpdate"></h3>
 
         </div>
       </div>
@@ -87,11 +114,15 @@ section {
     let globalConfirmed = <%=globalConfirmed%>;
     let globalNewConfirmed = <%=globalNewConfirmed%>;
     let secUpdate = globalNewConfirmed/24/60/60;
+    let minUpdate = secUpdate*60;
+    let hourUpdate = secUpdate*60*60;
     let nowExpectation = globalConfirmed+(secUpdate*seconds)+(secUpdate*60*minutes)+(secUpdate*60*60*hours);
 
     console.log(nowExpectation);
     
     $("#globalsecUpdate").text("전 세계에서 1초에 약 "+secUpdate.toFixed(5)+"명이 확진판정을 받고 있습니다.");
+    $("#globalminUpdate").text("1분에 약 "+minUpdate.toFixed(0)+"명");
+    $("#globalhUpdate").text("1시간에 약 "+hourUpdate.toFixed(0)+"명");
 
     setInterval(function() { 
       nowExpectation = nowExpectation+secUpdate;
