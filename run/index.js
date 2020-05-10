@@ -6,7 +6,7 @@ const request = require('request');
 var cron = require('node-cron');
 var fs = require('fs'); 
 
-cron.schedule('* * * * *', () => {
+cron.schedule('34 * * * *', () => {
     request('https://corona-api.com/timeline', function (error, response, body) {
         console.error('error:', error); // Print the error if one occurred
         //console.log('statusCode:', response && response.statusCode); // Print the response status code if a response was received
@@ -44,18 +44,22 @@ let month = today.getMonth() + 1;  // 월
 let date = today.getDate();  // 날짜
 let day = today.getDay();  // 요일
 
-fs.readFile('../data/'+year+month+date+'.json','utf8',function(err,data){ 
-    app.get('/', function(req, res) {
+
+
+app.get('/', function(req, res) {
+    fs.readFile('../data/'+year+month+date+'.json','utf8',function(err,data){ 
         res.render("index", {
             globalConfirmed: JSON.parse(JSON.parse(data).data[0].confirmed),
             globalUpdate: JSON.stringify(JSON.parse(data).data[0].updated_at),
             globalNewConfirmed: JSON.parse(JSON.parse(data).data[0].new_confirmed)
         });
-        console.log(JSON.parse(JSON.parse(data).data[0].confirmed))
+        //console.log(JSON.parse(JSON.parse(data).data[0].confirmed))
     });
 });
 
-
+app.get('/intro', function(req, res) {
+    res.render('intro');
+});
 
 server.listen(9200);
 //https://api.covid19api.com/summary
